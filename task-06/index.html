@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Store - Premium E-Commerce</title>
+    <meta name="description" content="Nexus Store premium e-commerce platform">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header role="banner">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-gem"></i></div>
+            <h1>NEXUS</h1>
+        </div>
+        <div class="header-actions">
+            <button id="cart-btn" class="cart-btn" aria-label="Open Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Cart</span>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main role="main">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Discover Elite Collections</h2>
+                <p>Shop high-end electronics, fashion, and accessories with instant search, live inventory, and seamless
+                    checkout.</p>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search products...">
+            </div>
+
+            <div class="filter-sort">
+                <select id="category-select" aria-label="Filter by category">
+                    <option value="all">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="jewelery">Jewelery</option>
+                    <option value="men's clothing">Men's Clothing</option>
+                    <option value="women's clothing">Women's Clothing</option>
+                </select>
+
+                <select id="sort-select" aria-label="Sort products">
+                    <option value="default">Sort by</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                </select>
+            </div>
+        </section>
+
+        <div id="error-banner" class="error-banner" style="display: none;"></div>
+        <div id="loading-skeleton" class="loading-state">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Loading catalog inventory...
+        </div>
+
+        <section id="product-grid" class="product-grid"></section>
+    </main>
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-modal" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid id fa-bag-shopping"></i> Shopping Cart</h3>
+            <button id="close-cart" class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span class="total-price">$<span id="cart-total">0.00</span></span>
+            </div>
+            <button id="checkout-btn" class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

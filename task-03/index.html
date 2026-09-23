@@ -1,0 +1,352 @@
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Dashboard - Task 03 Semantic Architecture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "sidebar main";
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            min-height: 100vh;
+        }
+
+        header {
+            grid-area: header;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        aside {
+            grid-area: sidebar;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 30px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 8px;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #eef2ff;
+            color: var(--primary);
+        }
+
+        nav a:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        main {
+            grid-area: main;
+            padding: 35px;
+            overflow-y: auto;
+        }
+
+        .dashboard-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .dashboard-section h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-section p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge.approved {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge.review {
+            background: #fef9c3;
+            color: #a16207;
+        }
+
+        .badge.progress {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        fieldset {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        legend {
+            font-weight: 600;
+            padding: 0 10px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button[type="submit"] {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--primary-hover);
+        }
+
+        .modal {
+            border: none;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header role="banner">
+        <h1>RabTech Enterprise</h1>
+        <div class="user-profile" aria-label="Current User">
+            <i class="fa-solid fa-user-circle"></i> Kartheeswaran M
+        </div>
+    </header>
+
+    <aside aria-label="Sidebar Navigation" role="complementary">
+        <nav aria-label="Main Menu">
+            <ul>
+                <li><a href="#overview" class="active"><i class="fa-solid fa-chart-pie"></i> Overview</a></li>
+                <li><a href="#analytics"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#settings"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main role="main" id="main-content">
+
+        <section class="dashboard-section" aria-labelledby="section-title">
+            <h2 id="section-title">Dashboard Performance Overview</h2>
+            <p>Welcome back, Kartheeswaran! Here is your live system accessibility and component status report.</p>
+
+            <table role="table" aria-label="System Task Status Table">
+                <thead>
+                    <tr>
+                        <th scope="col">Task ID</th>
+                        <th scope="col">Task Name</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TASK-01</strong></td>
+                        <td>LinkedIn Announcement</td>
+                        <td><span class="badge approved" aria-label="Approved"><i class="fa-solid fa-check"></i>
+                                Approved</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TASK-02</strong></td>
+                        <td>Accessibility Audit</td>
+                        <td><span class="badge review" aria-label="In Review"><i class="fa-solid fa-clock"></i> In
+                                Review</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TASK-03</strong></td>
+                        <td>Semantic HTML5 Architecture</td>
+                        <td><span class="badge progress" aria-label="In Progress"><i class="fa-solid fa-spinner"></i> In
+                                Progress</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="dashboard-section" aria-labelledby="form-title">
+            <h2 id="form-title">Quick User Settings</h2>
+            <p>Manage your account parameters and notification preferences securely.</p>
+
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Profile Configuration</legend>
+
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label for="username">Full Name:</label>
+                        <input type="text" id="username" name="username" required aria-required="true"
+                            value="Kartheeswaran M">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="notifications" name="notifications" checked
+                            style="width: 18px; height: 18px; accent-color: var(--primary);">
+                        <label for="notifications" style="margin-bottom: 0; cursor: pointer;">Enable Real-time Email
+                            Notifications</label>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button type="submit">Save Changes</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+        <dialog id="info-modal" class="modal" aria-labelledby="modal-title">
+            <h3 id="modal-title" style="margin-bottom: 10px;">System Notice</h3>
+            <p style="margin-bottom: 15px;">All semantic guidelines and WCAG 2.1 accessibility standards are
+                successfully applied to this layout.</p>
+            <form method="dialog">
+                <button type="submit"
+                    style="background: var(--text-main); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Close
+                    Notice</button>
+            </form>
+        </dialog>
+
+    </main>
+
+</body>
+
+</html>
